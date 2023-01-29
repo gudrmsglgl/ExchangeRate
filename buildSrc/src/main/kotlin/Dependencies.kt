@@ -25,10 +25,12 @@ object Dependencies {
         val viewModel by lazy { "androidx.lifecycle:lifecycle-viewmodel-compose:2.5.1" }
         // Optional - Integration with Hilt
         val hilt by lazy { "androidx.hilt:hilt-navigation-compose:1.0.0" }
+
+        val numberPicker by lazy { "com.chargemap.compose:numberpicker:1.0.3" }
     }
 
     object Accompanist {
-        val systemUiController by lazy { "com.google.accompanist:accompanist-systemuicontroller:0.28.0" }
+        val systemUiController by lazy { "com.google.accompanist:accompanist-systemuicontroller:0.29.0-alpha" }
         val pager by lazy { "com.google.accompanist:accompanist-pager:0.28.0" }
         val pagerIndicator by lazy { "com.google.accompanist:accompanist-pager-indicators:0.28.0" }
     }
