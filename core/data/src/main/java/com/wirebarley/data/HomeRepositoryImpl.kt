@@ -13,7 +13,7 @@ class HomeRepositoryImpl
 
     override suspend fun getCurrencyData(source: String): CurrencyResponse {
         return remoteSource
-            .getCurrencyData()
+            .getCurrencyData(source)
             .asDomain()
     }
 }
