@@ -1,13 +1,10 @@
 plugins {
-    kotlin("kapt")
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
-    id("com.google.dagger.hilt.android")
-    id("kotlinx-serialization")
 }
 
 android {
-    namespace = "com.wirebarley.network"
+    namespace = "com.wirebarley.data"
     compileSdk = 32
 
     defaultConfig {
@@ -35,22 +32,10 @@ android {
 }
 
 dependencies {
-    implementation(project(":core:data"))
 
     implementation("androidx.core:core-ktx:1.7.0")
     implementation("androidx.appcompat:appcompat:1.6.0")
-    implementation("com.google.android.material:material:1.7.0")
-
-    implementation(Dependencies.Dagger.hilt)
-    kapt(Dependencies.Dagger.hiltCompiler)
-
-    implementation(Dependencies.Network.retrofit2)
-    implementation(Dependencies.Network.okhttp3)
-    implementation(Dependencies.Network.okhttp3LoggingInterceptor)
-
-    implementation(Dependencies.Network.serialization)
-    implementation(Dependencies.Network.serializationAdapter)
-
+    implementation("com.google.android.material:material:1.8.0")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
