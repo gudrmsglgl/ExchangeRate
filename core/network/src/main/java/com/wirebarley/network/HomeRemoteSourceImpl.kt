@@ -15,4 +15,10 @@ constructor(private val service: HomeService) : HomeRemoteSource {
             .getCurrencyData(source)
             .asEntity()
     }
+
+    override suspend fun getOtherCurrencyData(): CurrencyResponseEntity {
+        return service
+            .getOtherCurrencyData()
+            .asEntity()
+    }
 }

@@ -4,4 +4,5 @@ import com.wirebarley.data.model.CurrencyResponseEntity
 
 interface HomeRemoteSource {
     suspend fun getCurrencyData(source: String = "USD"): CurrencyResponseEntity
+    suspend fun getOtherCurrencyData(): CurrencyResponseEntity
 }
