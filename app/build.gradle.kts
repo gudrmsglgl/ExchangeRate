@@ -56,6 +56,9 @@ dependencies {
     implementation(Dependencies.Compose.ui)
     implementation(Dependencies.Compose.preview)
     implementation(Dependencies.Compose.material)
+    implementation(Dependencies.Compose.numberPicker)
+
+    implementation(Dependencies.Accompanist.systemUiController)
 
     testImplementation(TestDependencies.junit)
     androidTestImplementation(TestDependencies.junitAndroidx)
