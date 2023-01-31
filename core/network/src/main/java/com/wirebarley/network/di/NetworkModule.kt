@@ -23,8 +23,8 @@ import retrofit2.Retrofit
 @Module
 @InstallIn(SingletonComponent::class)
 object NetworkModule {
-    const val otherUrl = "http://www.apilayer.net/api/"
-    //const val baseUrl = "https://api.apilayer.com/currency_data/"
+    //const val otherUrl = "http://www.apilayer.net/api/"
+    const val baseUrl = "https://api.apilayer.com/currency_data/"
 
     @Provides
     fun provideSerializationJson(): Json = Json {
@@ -45,7 +45,7 @@ object NetworkModule {
     ): Retrofit {
         return Retrofit.Builder()
             .client(okHttpClient)
-            .baseUrl(otherUrl)
+            .baseUrl(baseUrl)
             .addConverterFactory(
                 @OptIn(ExperimentalSerializationApi::class)
                 json.asConverterFactory("application/json".toMediaType())
@@ -57,7 +57,7 @@ object NetworkModule {
     fun provideOkHttp(): OkHttpClient {
         val interceptor = makeLoggingInterceptor()
         return OkHttpClient.Builder()
-            //.addInterceptor(AuthInterceptor())
+            .addInterceptor(AuthInterceptor())
             .addInterceptor(interceptor)
             .build()
     }
