@@ -4,4 +4,5 @@ import com.wirebarley.domain.model.CurrencyResponse
 
 interface HomeRepository {
     suspend fun getCurrencyData(source: String = "USD"): CurrencyResponse
+    suspend fun getOtherCurrencyData(): CurrencyResponse
 }

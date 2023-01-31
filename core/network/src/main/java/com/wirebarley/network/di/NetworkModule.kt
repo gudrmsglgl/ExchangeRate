@@ -1,25 +1,30 @@
 package com.wirebarley.network.di
 
+import android.util.Log
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import com.wirebarley.network.service.HomeService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import kotlinx.coroutines.*
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
 import okhttp3.Interceptor
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
+import okhttp3.Protocol
 import okhttp3.Response
+import okhttp3.ResponseBody.Companion.toResponseBody
+import okhttp3.internal.closeQuietly
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 
 @Module
 @InstallIn(SingletonComponent::class)
 object NetworkModule {
-
-    const val baseUrl = "https://api.apilayer.com/currency_data/"
+    const val otherUrl = "http://www.apilayer.net/api/"
+    //const val baseUrl = "https://api.apilayer.com/currency_data/"
 
     @Provides
     fun provideSerializationJson(): Json = Json {
@@ -40,7 +45,7 @@ object NetworkModule {
     ): Retrofit {
         return Retrofit.Builder()
             .client(okHttpClient)
-            .baseUrl(baseUrl)
+            .baseUrl(otherUrl)
             .addConverterFactory(
                 @OptIn(ExperimentalSerializationApi::class)
                 json.asConverterFactory("application/json".toMediaType())
@@ -52,7 +57,7 @@ object NetworkModule {
     fun provideOkHttp(): OkHttpClient {
         val interceptor = makeLoggingInterceptor()
         return OkHttpClient.Builder()
-            .addInterceptor(AuthInterceptor())
+            //.addInterceptor(AuthInterceptor())
             .addInterceptor(interceptor)
             .build()
     }
