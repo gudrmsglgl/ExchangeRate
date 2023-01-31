@@ -3,6 +3,7 @@ plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
     id("com.google.dagger.hilt.android")
+    id("kotlinx-serialization")
 }
 
 android {
@@ -41,6 +42,9 @@ dependencies {
 
     implementation(Dependencies.Dagger.hilt)
     kapt(Dependencies.Dagger.hiltCompiler)
+
+    implementation(Dependencies.Network.serialization)
+    implementation(Dependencies.Network.serializationAdapter)
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
