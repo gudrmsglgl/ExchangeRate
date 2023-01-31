@@ -1,6 +1,8 @@
 plugins {
+    kotlin("kapt")
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id("com.google.dagger.hilt.android")
 }
 
 android {
@@ -52,6 +54,9 @@ dependencies {
 
     implementation(Dependencies.LifeCycle.runtimeKtx)
 
+    implementation(Dependencies.Dagger.hilt)
+    kapt(Dependencies.Dagger.hiltCompiler)
+
     implementation(Dependencies.Compose.activity)
     implementation(Dependencies.Compose.ui)
     implementation(Dependencies.Compose.preview)
@@ -67,4 +72,8 @@ dependencies {
 
     debugImplementation(Dependencies.Compose.uiTooling)
     debugImplementation(Dependencies.Compose.uiTestManifest)
+}
+
+kapt {
+    correctErrorTypes = true
 }
