@@ -10,7 +10,18 @@
 /.idea
 .DS_Store
 /build
+/.idea
 /captures
 .externalNativeBuild
 .cxx
 local.properties
+
+# ignore buildSrc
+buildSrc/build/classes/
+buildSrc/build/kotlin/
+buildSrc/build/pluginUnderTestMetadata/
+buildSrc/build/reports/
+buildSrc/build/kotlin/compileKotlin/
+buildSrc/build/source-roots/
+buildSrc/build/tmp/
+buildSrc/build/libs/
