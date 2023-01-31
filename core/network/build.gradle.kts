@@ -43,6 +43,10 @@ dependencies {
     implementation(Dependencies.Dagger.hilt)
     kapt(Dependencies.Dagger.hiltCompiler)
 
+    implementation(Dependencies.Network.retrofit2)
+    implementation(Dependencies.Network.okhttp3)
+    implementation(Dependencies.Network.okhttp3LoggingInterceptor)
+
     implementation(Dependencies.Network.serialization)
     implementation(Dependencies.Network.serializationAdapter)
 
