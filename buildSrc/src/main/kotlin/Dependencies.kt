@@ -38,6 +38,7 @@ object Dependencies {
     object LifeCycle {
         const val lifecycle_version = "2.3.1"
         val runtimeKtx by lazy { "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_version" }
+        val compose by lazy { "androidx.lifecycle:lifecycle-runtime-compose:2.6.0-alpha01" }
         val viewModelKtx by lazy { "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version" }
     }
 

@@ -15,7 +15,7 @@ fun Double.convertExchangeRate(): String {
 }
 
 fun String.extractCurrencyCode(): String {
-    if (this.find { it == '(' } == null) throw Exception("this is not country string value")
+    if (this.find { it == '(' } == null) throw Exception("this is not CurrencyCode string value")
     val prefixIndex = this.indexOfFirst { it == '(' }
     val suffix = this.indexOfLast { it == ')' }
     return this.substring(prefixIndex.plus(1), suffix)

@@ -29,21 +29,28 @@ import com.wirebarley.exchange.extensions.addFocusCleaner
 import com.wirebarley.exchange.extensions.convertExchangeRate
 import com.wirebarley.exchange.extensions.convertTimestampToDate
 import com.wirebarley.exchange.extensions.extractCurrencyCode
-import com.wirebarley.exchange.home.model.Quotes
+import com.wirebarley.exchange.home.model.CurrencyResponseUiModel
+import com.wirebarley.exchange.home.model.MockQuotes
 import com.wirebarley.exchange.ui.theme.ExchangeRateTheme
 
 
 @Composable
-fun HomeScreen() {
+fun HomeScreen(currencyResponse: CurrencyResponseUiModel) {
+
+
     val focusManager = LocalFocusManager.current
 
     val currencyNames = listOf("한국(KRW)", "일본(JPY)", "필리핀(PHP)")
     var currencyName by rememberSaveable { mutableStateOf(currencyNames[0]) }
+    val exchangeRate by rememberSaveable(currencyName) {
+        mutableStateOf(currencyResponse.getExchangeRate(currencyName))
+    }
 
     var remittance by rememberSaveable { mutableStateOf("") }
 
     val amountReceived: Double? by remember(currencyName, remittance) {
-        val exchangeRate = Quotes.getExchangeRate(currencyName)
+        //val exchangeRate = currencyResponse.getExchangeRate(currencyName)
+
         if (remittance.isEmpty())
             return@remember mutableStateOf(null)
         if (remittance.toIntOrNull() == null)
@@ -69,7 +76,7 @@ fun HomeScreen() {
             modifier = Modifier.padding(top = 20.dp, start = 30.dp),
             currencyName = currencyName,
             remittance = remittance,
-            exchangeRate = Quotes.getExchangeRate(currencyName),
+            exchangeRate = exchangeRate,
             onRemittanceChange = {
                 remittance = it
             }
@@ -329,7 +336,7 @@ fun RemittanceInputRowPreview() {
 @Composable
 fun ReceiptAmountResultPreview() {
     val currencyName = "한국(KRW)"
-    val exchangeRate = Quotes.getExchangeRate(currencyName)
+    val exchangeRate = MockQuotes.getExchangeRate(currencyName)
     val result = 100 * exchangeRate
     ExchangeRateTheme {
         ReceiptAmountResult(

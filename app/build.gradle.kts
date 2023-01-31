@@ -39,7 +39,7 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.1.1"
+        kotlinCompilerExtensionVersion = "1.3.2"
     }
     packagingOptions {
         resources {
@@ -49,10 +49,15 @@ android {
 }
 
 dependencies {
+    implementation(project(":core:network"))
+    implementation(project(":core:domain"))
+    implementation(project(":core:data"))
+    implementation(project(":core:common"))
 
     implementation(Dependencies.KTX.core)
 
     implementation(Dependencies.LifeCycle.runtimeKtx)
+    implementation(Dependencies.LifeCycle.compose)
 
     implementation(Dependencies.Dagger.hilt)
     kapt(Dependencies.Dagger.hiltCompiler)
@@ -62,6 +67,7 @@ dependencies {
     implementation(Dependencies.Compose.preview)
     implementation(Dependencies.Compose.material)
     implementation(Dependencies.Compose.numberPicker)
+    implementation(Dependencies.Compose.hilt)
 
     implementation(Dependencies.Accompanist.systemUiController)
 
