@@ -36,7 +36,34 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    EmptyScreen()
+
+                    viewModel
+                        .currencyResponse
+                        .collectAsStateWithLifecycle()
+                        .value
+                        .processOnComposable(
+                            onLoading = {
+                                Box(modifier = Modifier.fillMaxSize()) {
+                                    CircularProgressIndicator(
+                                        modifier = Modifier
+                                            .wrapContentSize()
+                                            .align(Alignment.Center),
+                                        color = MaterialTheme.colors.secondary
+                                    )
+                                }
+                            },
+                            onSuccess = {
+                                HomeScreen(currencyResponse = it.asUiModel())
+                            },
+                            onError = {
+                                Box(modifier = Modifier.fillMaxSize()) {
+                                    Text(
+                                        text = "Network Error ${it?.message}",
+                                        modifier = Modifier.align(Alignment.Center)
+                                    )
+                                }
+                            }
+                        )
                 }
             }
         }
