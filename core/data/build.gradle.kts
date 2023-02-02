@@ -7,11 +7,11 @@ plugins {
 
 android {
     namespace = "com.wirebarley.data"
-    compileSdk = 32
+    compileSdk = Configs.compileSdkVersion
 
     defaultConfig {
-        minSdk = 21
-        targetSdk = 32
+        minSdk = Configs.minSdkVersion
+        targetSdk = Configs.targetSdkVersion
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
@@ -42,6 +42,13 @@ dependencies {
 
     implementation(Dependencies.Dagger.hilt)
     kapt(Dependencies.Dagger.hiltCompiler)
+
+    implementation(Dependencies.Kotlin.reflection)
+    testImplementation(TestDependencies.KoTest.jvm)
+    testImplementation(TestDependencies.KoTest.runner)
+    testImplementation(TestDependencies.KoTest.assertion)
+
+    testImplementation(TestDependencies.mockk)
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")

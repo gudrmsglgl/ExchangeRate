@@ -4,6 +4,10 @@ object Dependencies {
         val core by lazy { "androidx.core:core-ktx:1.7.0" }
     }
 
+    object Kotlin {
+        val reflection by lazy { "org.jetbrains.kotlin:kotlin-reflect:1.7.20" }
+    }
+
     object AndroidX {
         val appCompat by lazy { "androidx.appcompat:appcompat:1.5.1" }
         val activityKtx by lazy { "androidx.activity:activity-ktx:1.5.1" }
