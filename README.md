@@ -5,8 +5,9 @@ CleanArchitectrue와 MultiModule로 아키텍처를 구성 하였습니다. <br>
 예외인 금액 혹은 문자일 때는 안내된 경고성 문구로 표시를 하였습니다. <br><br>
 
 ## 실행 화면 📱
+![execute](https://user-images.githubusercontent.com/16537977/216349543-b9dc6448-97df-4d67-af1f-a66c0b56bf15.gif)
 
-![exchange_ecute](https://user-images.githubusercontent.com/16537977/216335503-31e1cb79-8215-467d-b671-303eab63388c.gif)
+
 <br><br>
 
 ## Tech-stack 👨🏻‍💻
