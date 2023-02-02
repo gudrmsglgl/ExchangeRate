@@ -7,6 +7,7 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
@@ -23,21 +24,50 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.chargemap.compose.numberpicker.ListItemPicker
 import com.wirebarley.exchange.R
-import com.wirebarley.exchange.extensions.addFocusCleaner
-import com.wirebarley.exchange.extensions.convertExchangeRate
-import com.wirebarley.exchange.extensions.convertTimestampToDate
-import com.wirebarley.exchange.extensions.extractCurrencyCode
+import com.wirebarley.exchange.extensions.*
 import com.wirebarley.exchange.home.model.CurrencyResponseUiModel
 import com.wirebarley.exchange.home.model.MockQuotes
+import com.wirebarley.exchange.home.model.asUiModel
 import com.wirebarley.exchange.ui.theme.ExchangeRateTheme
+
+@Composable
+fun HomeScreen(viewModel: HomeViewModel = hiltViewModel()) {
+    viewModel
+        .currencyResponse
+        .collectAsStateWithLifecycle()
+        .value
+        .processOnComposable(
+            onLoading = {
+                Box(modifier = Modifier.fillMaxSize()) {
+                    CircularProgressIndicator(
+                        modifier = Modifier
+                            .wrapContentSize()
+                            .align(Alignment.Center),
+                        color = MaterialTheme.colors.secondary
+                    )
+                }
+            },
+            onSuccess = {
+                HomeScreen(currencyResponse = it.asUiModel())
+            },
+            onError = {
+                Box(modifier = Modifier.fillMaxSize()) {
+                    Text(
+                        text = "Network Error ${it?.message}",
+                        modifier = Modifier.align(Alignment.Center)
+                    )
+                }
+            }
+        )
+}
 
 
 @Composable
 fun HomeScreen(currencyResponse: CurrencyResponseUiModel) {
-
-
     val focusManager = LocalFocusManager.current
 
     val currencyNames = listOf("한국(KRW)", "일본(JPY)", "필리핀(PHP)")
@@ -49,7 +79,6 @@ fun HomeScreen(currencyResponse: CurrencyResponseUiModel) {
     var remittance by rememberSaveable { mutableStateOf("") }
 
     val amountReceived: Double? by remember(currencyName, remittance) {
-        //val exchangeRate = currencyResponse.getExchangeRate(currencyName)
 
         if (remittance.isEmpty())
             return@remember mutableStateOf(null)
@@ -77,6 +106,7 @@ fun HomeScreen(currencyResponse: CurrencyResponseUiModel) {
             currencyName = currencyName,
             remittance = remittance,
             exchangeRate = exchangeRate,
+            timeStamp = currencyResponse.timestamp,
             onRemittanceChange = {
                 remittance = it
             }
@@ -144,8 +174,8 @@ private fun ExChangeInfoContents(
     modifier: Modifier = Modifier,
     currencyName: String,
     remittance: String,
-    exchangeRate: Double = 1229.389997,
-    timeStamp: Long = 1674821343,
+    exchangeRate: Double,
+    timeStamp: Long,
     onRemittanceChange: (String) -> Unit
 ) {
     Column(
@@ -311,7 +341,7 @@ fun ExchangeRateRowPreview() {
 @Composable
 fun RequestTimeRowPreview() {
     ExchangeRateTheme {
-        RequestTimeRow(timeStamp = 1674821343)
+        RequestTimeRow(timeStamp = 1675345983)
     }
 }
 

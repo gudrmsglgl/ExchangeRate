@@ -25,12 +25,9 @@ constructor(
     private val getOtherCurrencyUseCase: GetOtherCurrencyUseCase
 ) : ViewModel() {
 
-    var count = 0
-    fun requestCurrency(source: String): SharedFlow<Result<CurrencyResponse>> {
-        count++
-        Log.e("HomeViewModel", "requestCurrency count is $count")
+    fun requestCurrency(source: String): StateFlow<Result<CurrencyResponse>> {
         return getCurrencyUseCase(source)
-            .shareIn(viewModelScope, SharingStarted.WhileSubscribed(5000))
+            .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), Result.Loading)
     }
 
     val currencyResponse = getOtherCurrencyUseCase()
