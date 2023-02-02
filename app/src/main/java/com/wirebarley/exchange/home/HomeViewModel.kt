@@ -26,7 +26,7 @@ constructor(
 ) : ViewModel() {
 
     var count = 0
-    fun requestCurrency(source: String): Flow<Result<CurrencyResponse>> {
+    fun requestCurrency(source: String): SharedFlow<Result<CurrencyResponse>> {
         count++
         Log.e("HomeViewModel", "requestCurrency count is $count")
         return getCurrencyUseCase(source)
